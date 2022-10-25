@@ -1,7 +1,8 @@
 name: is_it
-description: A micro-check library for dart and flutter.
-version: 0.0.1
+description: A micro-check library for dart and flutter. Check if a value is a certain type and then return true/false.
+version: 0.0.2
 homepage: https://justanotherdev.me
+repository: https://github.com/nadim1992/is_it
 
 environment:
   sdk: '>=2.18.3 <3.0.0'

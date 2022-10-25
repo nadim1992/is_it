@@ -4,13 +4,13 @@ import 'package:test/test.dart';
 void main() {
   final isIt = IsIt();
 
-  group('Tests for initialization', () {
+  group('Initialization', () {
     test('correct version', () {
-      expect(IsIt.version, '0.0.1');
+      expect(IsIt.version, '0.0.2');
     });
   });
 
-  group('Tests for regular expressions utility methods', () {
+  group('RegExp', () {
     test('affirmative is valid', () {
       expect(isIt.affirmative('yes'), isTrue);
     });
@@ -137,9 +137,81 @@ void main() {
     });
   });
 
-  group('Tests for non-regular expressions utility methods', () {
-    test('', () {
-      expect(1 == 1, isTrue);
+  group('Presence', () {
+    test('empty is valid', () {
+      expect(isIt.empty(''), isTrue);
+      expect(isIt.empty([]), isTrue);
+      expect(isIt.empty({}), isTrue);
+      expect(isIt.empty(<String>{}), isTrue);
+    });
+    test('empty is invalid', () {
+      expect(isIt.empty([1, 2]), isFalse);
+    });
+
+    test('existy is valid', () {
+      expect(isIt.existy(''), isTrue);
+      expect(isIt.existy([]), isTrue);
+      expect(isIt.existy({}), isTrue);
+      expect(isIt.existy(<String>{}), isTrue);
+    });
+    test('existy is invalid', () {
+      expect(isIt.existy(null), isFalse);
+    });
+
+    test('truthy is valid', () {
+      expect(isIt.truthy(true), isTrue);
+      expect(isIt.truthy('hello'), isTrue);
+    });
+    test('truthy is invalid', () {
+      expect(isIt.truthy(false), isFalse);
+      expect(isIt.truthy(null), isFalse);
+    });
+
+    test('falsy is valid', () {
+      expect(isIt.falsy(false), isTrue);
+      expect(isIt.falsy(null), isTrue);
+    });
+    test('falsy is invalid', () {
+      expect(isIt.falsy(true), isFalse);
+      expect(isIt.falsy([]), isFalse);
+    });
+
+    test('space is valid', () {
+      expect(isIt.space(' '), isTrue);
+    });
+    test('space is invalid', () {
+      expect(isIt.space(''), isFalse);
+    });
+  });
+
+  group('Arithmetic', () {
+    test('equal is valid', () {
+      expect(isIt.equal(1, 1.0), isTrue);
+      expect(isIt.equal(21 - 3, 18), isTrue);
+      expect(isIt.equal(true, true), isTrue);
+      expect(isIt.equal(false, false), isTrue);
+      expect(isIt.equal(null, null), isTrue);
+      expect(isIt.equal('yahoo', 'yahoo'), isTrue);
+      // expect(isIt.equal({}, {}), isTrue);
+      // expect(isIt.equal([], []), isTrue);
+    });
+    test('equal is invalid', () {
+      expect(isIt.equal(23, 19), isFalse);
+      expect(isIt.equal(2, '2'), isFalse);
+    });
+
+    test('even is valid', () {
+      expect(isIt.even(22), isTrue);
+    });
+    test('even is invalid', () {
+      expect(isIt.even(17), isFalse);
+    });
+
+    test('number is valid', () {
+      expect(isIt.number(18), isTrue);
+    });
+    test('number is invalid', () {
+      expect(isIt.number('hello'), isFalse);
     });
   });
 }

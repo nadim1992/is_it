@@ -2,7 +2,9 @@
 // Micro check library.
 
 class IsIt {
-  static const String version = '0.0.1';
+  static const String version = '0.0.2';
+
+  /// RegExp
 
   Map regExps = {
     'affirmative': RegExp(r"^(?:1|t(?:rue)?|y(?:es)?|ok(?:ay)?)$", caseSensitive: false),
@@ -43,4 +45,19 @@ class IsIt {
   bool usZipCode(value) => regExps['usZipCode'].hasMatch(value);
 
   bool ip(value) => ipv4(value) || ipv6(value);
+
+  /// Presence
+
+  bool empty(value) => value.isEmpty;
+  bool existy(value) => null == value ? false : true;
+  bool truthy(value) => false != value && existy(value);
+  bool falsy(value) => false == value || null == value;
+  bool space(value) => ' ' == value;
+
+  // Arithmetic
+  bool equal(left, right) => left == right;
+
+  bool even(value) => number(value) && 0 == value % 2;
+
+  bool number(value) => int == value.runtimeType || double == value.runtimeType;
 }
